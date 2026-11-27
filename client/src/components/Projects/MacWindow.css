@@ -1,0 +1,189 @@
+.mac {
+  border-radius: var(--r-window);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  /* Sombra tingida, não preta */
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.5) inset,
+    0 30px 60px -30px rgb(var(--shadow-tint) / 0.35),
+    0 12px 24px -16px rgb(194 65 12 / 0.18);
+}
+
+.mac__bar {
+  display: grid;
+  grid-template-columns: 70px 1fr 70px;
+  align-items: center;
+  height: 44px;
+  padding: 0 14px;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+}
+
+.mac__lights {
+  display: flex;
+  gap: 8px;
+}
+.mac__light {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 0.5px rgb(0 0 0 / 0.15);
+}
+.mac__light--red {
+  background: #ff5f57;
+}
+.mac__light--yellow {
+  background: #febc2e;
+}
+.mac__light--green {
+  background: #28c840;
+}
+
+.mac__url {
+  justify-self: center;
+  max-width: 100%;
+  padding: 4px 16px;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 0.8rem;
+  color: var(--text-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mac__count {
+  justify-self: end;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--text-3);
+}
+
+.mac__viewport {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: var(--ratio, 16 / 10);
+  background: var(--surface-2);
+  touch-action: pan-y;
+  cursor: grab;
+}
+.mac__viewport:active {
+  cursor: grabbing;
+}
+.mac__viewport:focus-visible {
+  outline-offset: -3px;
+  border-radius: 0;
+}
+
+.mac__track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.6s var(--ease);
+}
+
+.mac__slide {
+  flex: 0 0 100%;
+  height: 100%;
+  margin: 0;
+}
+.mac__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Vídeo em pé (celular) dentro da janela: mostra inteiro sobre fundo escuro */
+.mac__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #0f0f11;
+}
+
+.mac__arrow {
+  position: absolute;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--glass-border);
+  border-radius: 50%;
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--text);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-50%) scale(0.9);
+  transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.mac__arrow--prev {
+  left: 14px;
+}
+.mac__arrow--next {
+  right: 14px;
+}
+.mac__viewport:hover .mac__arrow,
+.mac__viewport:focus-within .mac__arrow {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}
+.mac__arrow:active {
+  transform: translateY(-50%) scale(0.94);
+}
+
+/* Em telas de toque as setas ficam sempre visíveis */
+@media (hover: none) {
+  .mac__arrow {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+}
+
+.mac__dots {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  padding: 6px 0;
+}
+.mac__dot {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.mac__dot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--r-pill);
+  background: var(--border);
+  transform: translate(-50%, -50%);
+  transition: width 0.3s var(--ease), background-color 0.3s var(--ease);
+}
+.mac__dot.is-active::after {
+  width: 20px;
+  background: var(--accent);
+}
+
+@media (max-width: 480px) {
+  .mac__bar {
+    grid-template-columns: 56px 1fr 40px;
+    padding: 0 10px;
+  }
+  .mac__light {
+    width: 10px;
+    height: 10px;
+  }
+}

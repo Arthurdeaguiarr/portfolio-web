@@ -1,0 +1,30 @@
+.footer {
+  border-top: 1px solid var(--border);
+}
+
+.footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding-block: 32px;
+  font-size: 0.95rem;
+  color: var(--text-2);
+}
+
+.footer__top {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+}
+.footer__top:hover svg {
+  transform: translateY(-2px);
+}
+.footer__top svg {
+  transition: transform 0.25s var(--ease);
+}

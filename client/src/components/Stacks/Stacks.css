@@ -1,0 +1,217 @@
+/* Composição assimétrica inspirada na referência "Skills and Qualities" */
+.stacks__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.1fr) minmax(0, 0.85fr);
+  grid-template-areas:
+    'image tech    tech'
+    'image cluster soft'
+    'title cluster soft'
+    'title cluster tools';
+  gap: clamp(24px, 3vw, 40px) clamp(24px, 4vw, 56px);
+  align-items: start;
+}
+
+.stacks__image {
+  grid-area: image;
+  align-self: center;
+}
+/* Recorte em PNG transparente: sem moldura, só uma sombra que segue o contorno */
+.stacks__image img {
+  width: 100%;
+  filter: drop-shadow(18px 28px 28px rgb(var(--shadow-tint) / 0.28));
+}
+
+.stacks__title-wrap {
+  grid-area: title;
+  align-self: end;
+  display: grid;
+  gap: 16px;
+}
+
+.stacks__title {
+  font-size: clamp(2.5rem, 4.4vw, 3.75rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.stacks__role {
+  font-size: 0.95rem;
+  color: var(--text-2);
+}
+
+.stacks__group {
+  display: grid;
+  gap: 18px;
+}
+
+.stacks__subtitle {
+  font-size: clamp(1.75rem, 2.8vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.stacks__tech {
+  grid-area: tech;
+}
+.stacks__soft {
+  grid-area: soft;
+  align-self: end;
+}
+.stacks__soft .tag-list {
+  justify-content: flex-end;
+}
+.stacks__soft .stacks__subtitle {
+  text-align: right;
+}
+.stacks__tools {
+  grid-area: tools;
+}
+.stacks__tools .stacks__subtitle {
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+  text-align: right;
+}
+.stacks__tools .tag-list {
+  justify-content: flex-end;
+}
+
+/* Aglomerado de cards inclinados */
+.stacks__cluster {
+  grid-area: cluster;
+  position: relative;
+  min-height: 520px;
+}
+
+.stack-card {
+  --r: var(--rot);
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 10px;
+  width: 112px;
+  height: 112px;
+  padding: 12px;
+  border-radius: var(--r-card);
+  /* Cards claros nos dois temas, como na referência */
+  background: #fdfdfc;
+  border: 1px solid rgb(24 24 27 / 0.08);
+  box-shadow: 0 18px 34px -18px rgb(24 24 27 / 0.35);
+  color: #18181b;
+  transform: rotate(var(--r));
+  transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+}
+.stack-card img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+}
+.stack-card__name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.stack-card:hover {
+  z-index: 2;
+  transform: rotate(0deg) translateY(-8px) scale(1.06);
+  box-shadow: 0 28px 44px -20px rgb(194 65 12 / 0.45);
+}
+
+/* Entrada: os cards "caem" no lugar com stagger */
+.stacks__cluster .stack-card {
+  opacity: 0;
+  transform: translateY(-60px) rotate(0deg);
+  transition:
+    opacity 0.6s var(--ease) calc(var(--i) * 70ms),
+    transform 0.9s cubic-bezier(0.34, 1.4, 0.5, 1) calc(var(--i) * 70ms),
+    box-shadow 0.5s var(--ease);
+}
+.stacks__cluster.is-visible .stack-card {
+  opacity: 1;
+  transform: rotate(var(--r));
+}
+.stacks__cluster.is-visible .stack-card:hover {
+  transform: rotate(0deg) translateY(-8px) scale(1.06);
+  transition-delay: 0ms;
+}
+/* O container do aglomerado não usa o fade padrão do .reveal */
+.stacks__cluster.reveal {
+  opacity: 1;
+  transform: none;
+}
+
+.stacks__square {
+  position: absolute;
+  border-radius: 2px;
+  background: var(--accent);
+  transform: rotate(var(--r));
+}
+
+@media (max-width: 1080px) {
+  .stacks__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      'title   image'
+      'tech    tech'
+      'cluster cluster'
+      'soft    tools';
+  }
+  .stacks__cluster {
+    min-height: 460px;
+    max-width: 640px;
+    width: 100%;
+    justify-self: center;
+  }
+  .stacks__soft,
+  .stacks__tools {
+    align-self: start;
+  }
+  .stacks__soft .tag-list,
+  .stacks__tools .tag-list {
+    justify-content: flex-start;
+  }
+  .stacks__soft .stacks__subtitle,
+  .stacks__tools .stacks__subtitle {
+    text-align: left;
+  }
+}
+
+/* Mobile: uma coluna e o aglomerado vira uma grade solta */
+@media (max-width: 700px) {
+  .stacks__grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'title'
+      'image'
+      'tech'
+      'cluster'
+      'soft'
+      'tools';
+  }
+  .stacks__cluster {
+    min-height: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+    gap: 14px;
+    padding-block: 8px;
+  }
+  .stack-card {
+    position: static;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+  }
+  .stack-card:nth-of-type(odd) {
+    --r: -4deg;
+  }
+  .stack-card:nth-of-type(even) {
+    --r: 4deg;
+  }
+  .stacks__square {
+    display: none;
+  }
+}

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arthur | Desenvolvedor Full-Stack</title>
+    <meta
+      name="description"
+      content="Portfólio de Arthur, estudante de Ciência da Computação e desenvolvedor full-stack em Brasília."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Arthur | Desenvolvedor Full-Stack" />
+    <meta
+      property="og:description"
+      content="Estudante de Ciência da Computação que desenvolve do front-end ao back-end."
+    />
+    <!-- TODO: adicionar og:image (1200x630) em public/images/og.jpg e og:url com o domínio -->
+    <meta name="theme-color" content="#fafaf9" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script>
+      // Aplica o tema e o idioma antes do React carregar, evitando o "piscar"
+      (function () {
+        var root = document.documentElement;
+        try {
+          var saved = localStorage.getItem('theme');
+          var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+          root.dataset.theme = dark ? 'dark' : 'light';
+          if (localStorage.getItem('lang') === 'en') root.lang = 'en';
+        } catch (e) {
+          root.dataset.theme = 'light';
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

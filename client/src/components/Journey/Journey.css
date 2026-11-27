@@ -1,0 +1,132 @@
+.timeline {
+  list-style: none;
+  margin: clamp(32px, 5vw, 56px) 0 0;
+  padding: 0;
+  display: grid;
+  max-width: 920px;
+}
+
+.timeline__item {
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  gap: 24px;
+  padding: 28px 0;
+  border-top: 1px solid var(--border);
+}
+
+.timeline__date {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--accent-strong);
+  padding-top: 6px;
+}
+
+.timeline__body {
+  display: grid;
+  gap: 4px;
+}
+
+.timeline__title {
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.timeline__place {
+  font-weight: 500;
+  color: var(--text);
+}
+
+.timeline__desc {
+  max-width: 52ch;
+  color: var(--text-2);
+}
+
+/* Eventos: faixa com degradê laranja e duas janelas com fotos */
+.events {
+  margin-top: clamp(56px, 8vw, 96px);
+  padding: clamp(24px, 4vw, 48px);
+  border-radius: var(--r-card);
+  background:
+    radial-gradient(80% 90% at 100% 0%, var(--accent) 0%, transparent 55%),
+    linear-gradient(160deg, var(--accent-soft), var(--hero-mid));
+}
+
+.events__head {
+  display: grid;
+  gap: 8px;
+  margin-bottom: clamp(24px, 4vw, 40px);
+}
+
+.events__title {
+  font-size: clamp(2rem, 3.6vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.events__title .dot {
+  color: var(--text);
+}
+
+.events__text {
+  color: var(--text-2);
+}
+
+.events__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(20px, 3vw, 40px);
+  align-items: start;
+}
+
+/* A segunda janela fica um pouco mais baixa, quebrando a simetria */
+.event:nth-child(2) {
+  margin-top: clamp(0px, 6vw, 72px);
+}
+
+.event {
+  display: grid;
+  gap: 16px;
+}
+
+.event__caption {
+  display: grid;
+  gap: 2px;
+  padding-inline: 4px;
+}
+
+.event__name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.event__place {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.95rem;
+  color: var(--text-2);
+}
+.event__place svg {
+  color: var(--accent-strong);
+}
+
+@media (max-width: 760px) {
+  .events__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .event:nth-child(2) {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .timeline__item {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .timeline__date {
+    padding-top: 0;
+  }
+}

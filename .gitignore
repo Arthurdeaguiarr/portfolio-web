@@ -1,0 +1,15 @@
+node_modules/
+dist/
+# Segredos: nunca versionar
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.DS_Store
+*.log
+.tools/
+# Arquivos locais que não fazem parte do site
+.claude/
+portfolio-arthur/
+prompt-portfolio-claude-code.md
